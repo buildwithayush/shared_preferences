@@ -17,6 +17,13 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
   }
 
   @override
+  void initState() {
+    
+    super.initState();
+     getValue();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Shared Preferences Learn')),
@@ -78,5 +85,13 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
         ),
       ),
     );
+  }
+  
+  void getValue() async {
+  final SharedPreferences preferences = await SharedPreferences.getInstance();
+   final saved = preferences.getString('name');
+    if (saved != null) {
+      controller.text = saved; 
+    }
   }
 }

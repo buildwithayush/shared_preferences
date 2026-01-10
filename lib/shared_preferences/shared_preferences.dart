@@ -12,7 +12,7 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
   final controller = TextEditingController();
   @override
   void dispose() {
-    controller.dispose(); // ✅ mandatory cleanup
+    controller.dispose();
     super.dispose();
   }
 

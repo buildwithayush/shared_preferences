@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_storage/screens/homepage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreferencesLearn extends StatefulWidget {
@@ -21,6 +22,10 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
     
     super.initState();
      getValue();
+    // navigatescreen();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+    navigatescreen();
+  });
   }
 
   @override
@@ -49,6 +54,7 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 await prefs.setString('name', controller.text.toString());
+                await prefs.setBool('isloggedin', true);
                 debugPrint("Saved");
               },
               style: ElevatedButton.styleFrom(
@@ -67,8 +73,8 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
             ElevatedButton(
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
-                String? Name = prefs.getString('name');
-                controller.text = Name!;
+                String? name = prefs.getString('name');
+                controller.text = name!;
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
@@ -92,6 +98,14 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
    final saved = preferences.getString('name');
     if (saved != null) {
       controller.text = saved; 
+    }
+  }
+
+  void navigatescreen() async{
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    final bool islogin = preferences.getBool('isloggedin') ?? false;
+    if(islogin == true){
+    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomePage()));
     }
   }
 }

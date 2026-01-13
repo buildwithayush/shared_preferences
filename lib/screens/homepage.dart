@@ -7,6 +7,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         centerTitle: true,
         
         title: Text("Welcome",style: TextStyle(
@@ -18,13 +19,20 @@ class HomePage extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(20)),
-            color: Colors.blue,
+            gradient: LinearGradient(
+              colors: [
+                Colors.orange,
+                Colors.pinkAccent,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
             border: Border.all(
               color: Colors.black,
               width: 3,
             )
           ),
-          child: Text("      Ayush Is \n      Learning \n SharedPreferences",
+          child: Text("You are Logged In",
           style: TextStyle(
             fontSize: 30,
             color: Colors.white,

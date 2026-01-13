@@ -18,17 +18,6 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
   }
 
   @override
-  void initState() {
-    
-    super.initState();
-     getValue();
-    // navigatescreen();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-    navigatescreen();
-  });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Shared Preferences Learn')),
@@ -55,6 +44,11 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 await prefs.setString('name', controller.text.toString());
                 await prefs.setBool('isloggedin', true);
+                if (!mounted) return;
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const HomePage()),
+                );
                 debugPrint("Saved");
               },
               style: ElevatedButton.styleFrom(
@@ -91,21 +85,5 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
         ),
       ),
     );
-  }
-  
-  void getValue() async {
-  final SharedPreferences preferences = await SharedPreferences.getInstance();
-   final saved = preferences.getString('name');
-    if (saved != null) {
-      controller.text = saved; 
-    }
-  }
-
-  void navigatescreen() async{
-    final SharedPreferences preferences = await SharedPreferences.getInstance();
-    final bool islogin = preferences.getBool('isloggedin') ?? false;
-    if(islogin == true){
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => HomePage()));
-    }
   }
 }

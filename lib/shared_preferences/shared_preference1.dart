@@ -60,7 +60,10 @@ class _SharedPreferencesLearnOneState extends State<SharedPreferencesLearnOne> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String? name = prefs.getString('name');
-                controller.text = name!;
+
+                if (name != null) {
+                  controller.text = name; 
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,

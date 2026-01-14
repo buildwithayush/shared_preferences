@@ -45,7 +45,7 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
                 await prefs.setString('name', controller.text.toString());
                 await prefs.setBool('isloggedin', true);
                 if (!mounted) return;
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (_) => const HomePage()),
                 );
@@ -68,7 +68,9 @@ class _SharedPreferencesLearnState extends State<SharedPreferencesLearn> {
               onPressed: () async {
                 SharedPreferences prefs = await SharedPreferences.getInstance();
                 String? name = prefs.getString('name');
-                controller.text = name!;
+                 if (name != null) {
+                  controller.text = name; 
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.green,
